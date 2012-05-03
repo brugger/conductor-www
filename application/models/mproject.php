@@ -26,11 +26,19 @@ class MProject extends CI_Model {
   }
   
 	// Delete one project record
-  public function delete_project($id) {
-    $this->db->where('id', $id);
+  public function delete_project($pid) {
+    $this->db->where('pid', $pid);
     $this->db->delete('project'); 
   }
+
+  public function status($pid) {
+    $query = $this->db->query('YOUR QUERY HERE');
+
+  }
+
+
   
+
 }
 /* End of file mstudent.php */
 /* Location: ./system/application/models/mstudent.php */

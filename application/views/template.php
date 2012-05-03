@@ -4,9 +4,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
 <link href="http://localhost/~kb468/CodeIgniter_2.1.0/assets/css/screen.css" rel="stylesheet" type="text/css" />
-<!--  the following two lines load the jQuery library and JavaScript files -->
-<script src="http://localhost/~kb468/CodeIgniter_2.1.0/assets/js/jquery-1.7.2.js" type="text/javascript"></script>
-<script src="http://localhost/~kb468/CodeIgniter_2.1.0/assets/js/global.js" type="text/javascript"></script>
+<!--  the following lines load the jQuery library + plugins and the conductor JavaScript file -->
+<script src="http://localhost/~kb468/conductor/assets/js/jquery-1.7.2.js" type="text/javascript"></script>
+<script src="http://localhost/~kb468/conductor/assets/js/global.js" type="text/javascript"></script>
+<script src="http://localhost/~kb468/conductor/assets/js/jquery.jeditable.js" type="text/javascript" charset="utf-8"></script>
 <title><?php echo $title;?></title>
 </head>
 <body>

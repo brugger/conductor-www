@@ -48,21 +48,57 @@
 $active_group = 'default';
 $active_record = TRUE;
 
-$db['default']['hostname'] = 'localhost';
-$db['default']['username'] = 'easih_admin';
-$db['default']['password'] = 'easih';
-$db['default']['database'] = 'conductor_dev';
-$db['default']['dbdriver'] = 'mysql';
-$db['default']['dbprefix'] = '';
-$db['default']['pconnect'] = TRUE;
-$db['default']['db_debug'] = TRUE;
-$db['default']['cache_on'] = FALSE;
-$db['default']['cachedir'] = '';
-$db['default']['char_set'] = 'utf8';
-$db['default']['dbcollat'] = 'utf8_general_ci';
-$db['default']['swap_pre'] = '';
-$db['default']['autoinit'] = TRUE;
-$db['default']['stricton'] = FALSE;
+$db[$active_group]['hostname'] = 'localhost';
+$db[$active_group]['username'] = 'easih_admin';
+$db[$active_group]['password'] = 'easih';
+$db[$active_group]['database'] = 'conductor';
+$db[$active_group]['dbdriver'] = 'mysql';
+$db[$active_group]['dbprefix'] = '';
+$db[$active_group]['pconnect'] = TRUE;
+$db[$active_group]['db_debug'] = TRUE;
+$db[$active_group]['cache_on'] = FALSE;
+$db[$active_group]['cachedir'] = '';
+$db[$active_group]['char_set'] = 'utf8';
+$db[$active_group]['dbcollat'] = 'utf8_general_ci';
+$db[$active_group]['swap_pre'] = '';
+$db[$active_group]['autoinit'] = TRUE;
+$db[$active_group]['stricton'] = FALSE;
+
+$active_group = 'EASIH_users';
+$db[$active_group]['hostname'] = 'localhost';
+$db[$active_group]['username'] = 'easih_admin';
+$db[$active_group]['password'] = 'easih';
+$db[$active_group]['database'] = 'EASIH_users';
+$db[$active_group]['dbdriver'] = 'mysql';
+$db[$active_group]['dbprefix'] = '';
+$db[$active_group]['pconnect'] = TRUE;
+$db[$active_group]['db_debug'] = TRUE;
+$db[$active_group]['cache_on'] = FALSE;
+$db[$active_group]['cachedir'] = '';
+$db[$active_group]['char_set'] = 'utf8';
+$db[$active_group]['dbcollat'] = 'utf8_general_ci';
+$db[$active_group]['swap_pre'] = '';
+$db[$active_group]['autoinit'] = TRUE;
+$db[$active_group]['stricton'] = FALSE;
+
+$active_group = 'customers';
+$db[$active_group]['hostname'] = 'localhost';
+$db[$active_group]['username'] = 'easih_admin';
+$db[$active_group]['password'] = 'easih';
+$db[$active_group]['database'] = 'customers';
+$db[$active_group]['dbdriver'] = 'mysql';
+$db[$active_group]['dbprefix'] = '';
+$db[$active_group]['pconnect'] = TRUE;
+$db[$active_group]['db_debug'] = TRUE;
+$db[$active_group]['cache_on'] = FALSE;
+$db[$active_group]['cachedir'] = '';
+$db[$active_group]['char_set'] = 'utf8';
+$db[$active_group]['dbcollat'] = 'utf8_general_ci';
+$db[$active_group]['swap_pre'] = '';
+$db[$active_group]['autoinit'] = TRUE;
+$db[$active_group]['stricton'] = FALSE;
+
+$active_group = 'default';
 
 
 /* End of file database.php */
