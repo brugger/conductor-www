@@ -54,7 +54,7 @@ class Project extends CI_Controller {
     
     $this->table->set_empty("&nbsp;"); 
 		
-    $this->table->set_heading('', 'Project ID', 'Notes', 'Analysis');
+    $this->table->set_heading('', 'ID', 'Notes', 'Analysis');
     
     $table_row = array();
     foreach ($projects_qry->result() as $project) {
@@ -69,6 +69,8 @@ class Project extends CI_Controller {
       
       $table_row[] = htmlspecialchars($project->name);
       $table_row[] = '<div class="edit" id="notes">'.htmlspecialchars($project->notes).'</div>';
+      $table_row[] = '<div class="edit" id="organism">'.htmlspecialchars($project->organism).'</div>';
+      $table_row[] = '<div class="edit" id="contacts">'.htmlspecialchars($project->contacts).'</div>';
 
       $analysis = 'None';
       if ( $project->aid ) {
@@ -169,6 +171,8 @@ class Project extends CI_Controller {
       
       $table_row[] = htmlspecialchars($project->name);
       $table_row[] = '<div class="edit" id="notes">'.htmlspecialchars($project->notes).'</div>';
+      $table_row[] = '<div class="edit" id="organism">'.htmlspecialchars($project->organism).'</div>';
+      $table_row[] = '<div class="edit" id="contacts">'.htmlspecialchars($project->contacts).'</div>';
 
       $analysis = 'None';
       if ( $project->aid ) {
