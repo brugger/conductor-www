@@ -12,11 +12,11 @@ class MProject extends CI_Model {
   public function list_all_projects() {
     
     return $this->db->get('project');
-	}
+  }
   
   // Retrieve one project record
   public function get_project($pid) {
-	  return $this->db->get_where('project', array('pid'=> $pid));
+    return $this->db->get_where('project', array('pid'=> $pid));
   }
   
   // Update one project record
@@ -33,7 +33,6 @@ class MProject extends CI_Model {
 
   public function status($pid) {
     $query = $this->db->query('YOUR QUERY HERE');
-
   }
 
 

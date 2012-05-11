@@ -131,7 +131,7 @@ class Project extends CI_Controller {
     }
 
 
-  public function status($pid) {
+  public function status() {
     $this->load->library('table');
 	  
     $this->load->model('MAnalysis','',TRUE);
@@ -139,12 +139,12 @@ class Project extends CI_Controller {
     $this->load->model('MSample','',TRUE);
 
 
-    $id = $this->uri->segment(3);
+    $pid = $this->uri->segment(3);
     $this->load->model('MProject','',TRUE);
-    $data['row'] = $this->MProject->get_project($id)->result();
-
-
-    $projects_qry = $this->MProject->list_all_projects();
+    $project = $this->MProject->get_project($pid)->result();
+    if ( count( $project ) == 1 ) {
+      $project = $project[0];
+    }
 
     // generate HTML table from query results
     $tmpl = array (
@@ -159,36 +159,35 @@ class Project extends CI_Controller {
     $this->table->set_heading('', 'Project ID', 'Notes', 'Analysis');
     
     $table_row = array();
-    foreach ($projects_qry->result() as $project) {
-      
-      $table_row = NULL;
-      $table_row[] = '<span style="white-space: nowrap">' . 
-		anchor('project/edit/' . $project->pid, 'edit') . ' | ' .
-	anchor('project/delete/' . $project->pid, 'delete',
-	       "onclick=\" return confirm('Are you sure you want to '
+
+    $table_row = NULL;
+    $table_row[] = '<span style="white-space: nowrap">' . 
+      anchor('project/edit/' . $project->pid, 'edit') . ' | ' .
+      anchor('project/delete/' . $project->pid, 'delete',
+	     "onclick=\" return confirm('Are you sure you want to '
 				+ 'delete the record for ".addslashes($project->name)."?')\"") .
-	'</span>';
-      
-      $table_row[] = htmlspecialchars($project->name);
-      $table_row[] = '<div class="edit" id="notes">'.htmlspecialchars($project->notes).'</div>';
-      $table_row[] = '<div class="edit" id="organism">'.htmlspecialchars($project->organism).'</div>';
-      $table_row[] = '<div class="edit" id="contacts">'.htmlspecialchars($project->contacts).'</div>';
-
-      $analysis = 'None';
-      if ( $project->aid ) {
-        $analyses = $this->MAnalysis->get_analysis($project->aid)->result();
-	$analysis = $analyses[0]->descr;
-      }
-      $table_row[] = htmlspecialchars($analysis);
-
-      $this->table->add_row($table_row);
-    }    
+      '</span>';
+    
+    $table_row[] = htmlspecialchars($project->name);
+    $table_row[] = '<div class="edit" id="notes">'.htmlspecialchars($project->notes).'</div>';
+    $table_row[] = '<div class="edit" id="organism">'.htmlspecialchars($project->organism).'</div>';
+    $table_row[] = '<div class="edit" id="contacts">'.htmlspecialchars($project->contacts).'</div>';
+    
+    $analysis = 'None';
+    if ( $project->aid ) {
+      $analyses = $this->MAnalysis->get_analysis($project->aid)->result();
+      $analysis = $analyses[0]->descr;
+    }
+    $table_row[] = htmlspecialchars($analysis);
+    
+    $this->table->add_row($table_row);
     
     $projects_table = $this->table->generate();
 		
     // display information for the view
-    $data['title']    = "Classroom: Project Listing";
-    $data['headline'] = "project Listing";
+    $data['title']    = "Classroom: Project Listing ";
+    //$data['headline'] = "project Listing for pid: $pid" +  "<PRE>"+   var_dump( $project ) + "</PRE>";
+    $data['headline'] = "project Listing for pid: $pid";
     $data['include']  = 'project_listing';
     $data['uid']      = $this->session->userdata('uid');
     $data['is_admin'] = $this->session->userdata('is_admin');
