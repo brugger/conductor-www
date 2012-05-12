@@ -24,7 +24,7 @@ class Project extends CI_Controller {
     $data['headline'] = "Add a New Project";
     $data['include'] = 'project_add';
     $data['uid'] = $this->session->userdata('uid');
-    $data['is_admin'] = $this->session->userdata('is_admin');
+    $data['groups'] = $this->session->userdata('groups');
     
     $this->load->view('template', $data);
   }
@@ -86,10 +86,10 @@ class Project extends CI_Controller {
 		
     // display information for the view
     $data['title']    = "Classroom: Project Listing";
-    $data['headline'] = "project Listing";
+    $data['headline'] = "project Listing uid:" . $this->session->userdata('uid') . " groups: " .  implode(", ", $this->session->userdata('groups'));
     $data['include']  = 'project_listing';
     $data['uid']      = $this->session->userdata('uid');
-    $data['is_admin'] = $this->session->userdata('is_admin');
+    $data['groups'] = $this->session->userdata('groups');
 		
     $data['data_table'] = $projects_table;
     
@@ -111,7 +111,7 @@ class Project extends CI_Controller {
     $data['include'] = 'project_edit';
     $data['analyses'] = $this->MAnalysis->list_all_analysis();
     $data['uid'] = $this->session->userdata('uid');
-    $data['is_admin'] = $this->session->userdata('is_admin');
+    $data['groups'] = $this->session->userdata('groups');
     
     $this->load->view('template', $data);
   }
@@ -190,7 +190,7 @@ class Project extends CI_Controller {
     $data['headline'] = "project Listing for pid: $pid";
     $data['include']  = 'project_listing';
     $data['uid']      = $this->session->userdata('uid');
-    $data['is_admin'] = $this->session->userdata('is_admin');
+    $data['groups'] = $this->session->userdata('groups');
 		
     $data['data_table'] = $projects_table;
     

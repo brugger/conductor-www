@@ -7,36 +7,35 @@ class User extends CI_Controller {
     parent::__construct();
   }
 
-    public function index()
-	{
-		// if posted with a username, validate login or generate error message
-		if (isset($_POST['username'])) {
-		
-			$this->load->model('MUser', '', TRUE);
-			$username = $this->input->post('username');
-			$password = $this->input->post('password');
-			if ($this->MUser->authenticate_user($username, $password, $uid, $is_admin) ) {
-				$this->session->set_userdata('uid', $uid);
-				$this->session->set_userdata('is_admin', $is_admin);
-				redirect('/', 'refresh');
-			} else {
-				$data['error_message'] = '<p>Incorrect Username and / or Password</p>';
-			}
-		}
-
-		// if not posted (or a authentication error), simply load the form
-		
-		$this->load->helper('form');
-
-		// display information for the view
-		$data['title'] = "Classroom: User Login";
-		$data['headline'] = "User Login";
-		$data['include'] = 'user_login';
-		$data['uid'] = $this->session->userdata('uid');
-		$data['is_admin'] = $this->session->userdata('is_admin');
-
-		$this->load->view('template', $data);
+  public function index() {
+    // if posted with a username, validate login or generate error message
+    if (isset($_POST['username'])) {
+      
+      $this->load->model('MUser', '', TRUE);
+      $username = $this->input->post('username');
+      $password = $this->input->post('password');
+      if ($this->MUser->authenticate_user($username, $password, $uid, $groups) ) {
+	$this->session->set_userdata('uid', $uid);
+	$this->session->set_userdata('groups', $groups);
+	redirect('/', 'refresh');
+      } else {
+	$data['error_message'] = '<p>Incorrect Username and / or Password</p>';
+      }
     }
+    
+    // if not posted (or a authentication error), simply load the form
+    
+    $this->load->helper('form');
+    
+    // display information for the view
+    $data['title'] = "Classroom: User Login";
+    $data['headline'] = "User Login";
+    $data['include'] = 'user_login';
+    $data['uid'] = $this->session->userdata('uid');
+    $data['groups'] = $this->session->userdata('groups');
+    
+    $this->load->view('template', $data);
+  }
 
     public function register()
 	{
@@ -63,9 +62,8 @@ class User extends CI_Controller {
 				$data['error_message'] .= validation_errors();
 			}
 			if ( ! $has_error) {
-				$this->MUser->add_user($username, $password, $uid, $is_admin);
+				$this->MUser->add_user($username, $password, $uid);
 				$this->session->set_userdata('uid', $uid);
-				$this->session->set_userdata('is_admin', $is_admin);
 
 				$data['success_message'] = '<p>Congratulations! Your registration was successful.</p>';
 				$data['register_success'] = TRUE;
@@ -83,7 +81,6 @@ class User extends CI_Controller {
 		$data['headline'] = "User Registration";
 		$data['include'] = 'user_register';
 		$data['uid'] = $this->session->userdata('uid');
-		$data['is_admin'] = $this->session->userdata('is_admin');
 
 		$this->load->view('template', $data);
     }

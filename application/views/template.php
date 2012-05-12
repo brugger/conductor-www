@@ -17,7 +17,7 @@
 		// nav bar
 		// loggend in
 		if ($uid) {
-			if ($is_admin) {
+		  if (in_array('easih', $groups)) {
 			  if ($this->router->class == "project" ) {
 			    echo "<b>Projects:</b> ";
 			    echo anchor('project/listing', 'List');
