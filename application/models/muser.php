@@ -42,7 +42,7 @@ class MUser extends CI_Model {
 	}
 
   // Create user record in database
-  public function add_user($username, $password, &$uid, &$is_admin) {
+  public function add_user($username, $password, &$uid, &$groups) {
     $this->db->insert('user', array('username'=>$username, 'password'=>md5($password)));
     
     $this->db->select('id');
@@ -52,7 +52,7 @@ class MUser extends CI_Model {
     $row = $query->row();
     $uid = $row->id;
     
-    $is_admin = FALSE;
+    $groups = FALSE;
   }
 
 }

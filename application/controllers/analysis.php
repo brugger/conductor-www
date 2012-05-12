@@ -21,7 +21,7 @@ class Analysis extends CI_Controller {
     $data['headline'] = "Add a New Analysis";
     $data['include'] = 'analysis_add';
     $data['uid'] = $this->session->userdata('uid');
-    $data['is_admin'] = $this->session->userdata('is_admin');
+    $data['groups'] = $this->session->userdata('groups');
     
     $this->load->view('template', $data);
   }
@@ -78,7 +78,7 @@ class Analysis extends CI_Controller {
     $data['headline'] = "Analysis Listing";
     $data['include']  = 'analysis_listing';
     $data['uid']      = $this->session->userdata('uid');
-    $data['is_admin'] = $this->session->userdata('is_admin');
+    $data['groups'] = $this->session->userdata('groups');
 		
     $data['data_table'] = $analysis_table;
     
@@ -97,7 +97,7 @@ class Analysis extends CI_Controller {
     $data['headline'] = "Edit Analysis Information";
     $data['include'] = 'analysis_edit';
     $data['uid'] = $this->session->userdata('uid');
-    $data['is_admin'] = $this->session->userdata('is_admin');
+    $data['groups'] = $this->session->userdata('groups');
     
     $this->load->view('template', $data);
   }

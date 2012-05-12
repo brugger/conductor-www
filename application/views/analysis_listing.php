@@ -1,9 +1,9 @@
 <?php
 	echo $data_table;
 
-	if (!$is_admin) {
+	if (in_array('admin', $groups)) {
 		echo '<br />';
-		echo anchor('analysis/add', 'Add new project');
+		echo anchor('analysis/add', 'Add new analysis');
 	}
 
 
