@@ -37,7 +37,7 @@ class Project extends CI_Controller {
     redirect('project/listing','refresh');
   }
 	
-  public function listing() {
+  public function listing( $filter ) {
     $this->load->library('table');
 	  
     $this->load->model('MAnalysis','',TRUE);
@@ -58,6 +58,12 @@ class Project extends CI_Controller {
     
     $table_row = array();
     foreach ($projects_qry->result() as $project) {
+
+      $project_status = $this->MProject->last_status( $project->pid);
+
+      
+      if ($filter == "Active" && $project_status->status == "Complete")
+	continue;
       
       $table_row = NULL;
       $table_row[] = '<span style="white-space: nowrap">' . 
@@ -71,6 +77,7 @@ class Project extends CI_Controller {
       $table_row[] = '<div class="edit" id="notes">'.htmlspecialchars($project->notes).'</div>';
       $table_row[] = '<div class="edit" id="organism">'.htmlspecialchars($project->organism).'</div>';
       $table_row[] = '<div class="edit" id="contacts">'.htmlspecialchars($project->contacts).'</div>';
+      $table_row[] = '<div class="edit" id="status">'.htmlspecialchars($project_status->status).'</div>';
 
       $analysis = 'None';
       if ( $project->aid ) {
@@ -86,7 +93,7 @@ class Project extends CI_Controller {
 		
     // display information for the view
     $data['title']    = "Classroom: Project Listing";
-    $data['headline'] = "project Listing uid:" . $this->session->userdata('uid') . " groups: " .  implode(", ", $this->session->userdata('groups'));
+    $data['headline'] = "project Listing uid:" . $this->session->userdata('uid') . " groups: " .  implode(", ", $this->session->userdata('groups') . "$inactive");
     $data['include']  = 'project_listing';
     $data['uid']      = $this->session->userdata('uid');
     $data['groups'] = $this->session->userdata('groups');

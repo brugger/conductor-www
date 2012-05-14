@@ -31,10 +31,24 @@ class MProject extends CI_Model {
     $this->db->delete('project'); 
   }
 
-  public function status($pid) {
-    $query = $this->db->query('YOUR QUERY HERE');
+  public function statuses($pid) {
+    $query = $this->db->query("select * from project_status where pid = '$pid' order by stamp");
+    $statuses;
+    foreach ($query->result() as $row)
+      $statuses[] = $row;
+
+    return $statuses;
   }
 
+  public function last_status($pid) {
+    $statuses = $this->statuses( $pid );
+    if ( ! $statuses )
+      return ;
+
+    return $statuses[0];
+  }
+
+  
 
   
 
