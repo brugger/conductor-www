@@ -60,6 +60,9 @@ class Project extends CI_Controller {
     foreach ($projects_qry->result() as $project) {
 
       $project_status = $this->MProject->last_status( $project->pid);
+      if (count( $project_status) == 0) {
+	$project_status->status = "unknown";
+      }
 
       
       if ($filter == "Active" && $project_status->status == "Complete")

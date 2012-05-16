@@ -33,7 +33,7 @@ class MProject extends CI_Model {
 
   public function statuses($pid) {
     $query = $this->db->query("select * from project_status where pid = '$pid' order by stamp");
-    $statuses;
+    $statuses = null;
     foreach ($query->result() as $row)
       $statuses[] = $row;
 
