@@ -2,8 +2,9 @@
 
 class Project extends MY_Controller {
 
+
+
   public function Project() {
-	  
     parent::__construct();
   }
 
@@ -37,6 +38,10 @@ class Project extends MY_Controller {
   }
 	
   public function listing( $filter ) {
+
+    if ( ! $filter)
+      $filter = 0;
+
     $this->load->library('table');
 	  
     $this->load->model('MAnalysis','',TRUE);
@@ -59,10 +64,6 @@ class Project extends MY_Controller {
     foreach ($projects_qry->result() as $project) {
 
       $project_status = $this->MProject->last_status( $project->pid);
-      if (count( $project_status) == 0) {
-	$project_status->status = "unknown";
-      }
-
       
       if ($filter == "Active" && $project_status->status == "Complete")
 	continue;
@@ -91,7 +92,7 @@ class Project extends MY_Controller {
 		
     // display information for the view
     $data['title']    = "Classroom: Project Listing";
-    $data['headline'] = "project Listing uid:" . $this->session->userdata('uid') . " groups: " .  implode(", ", $this->session->userdata('groups') . "$inactive");
+    $data['headline'] = "project Listing uid:" . $this->session->userdata('uid') . " groups: " .  implode(", ", $this->session->userdata('groups') . "$filter");
     $data['include']  = 'project_listing';
     $data['uid']      = $this->session->userdata('uid');
     $data['groups'] = $this->session->userdata('groups');
@@ -101,22 +102,26 @@ class Project extends MY_Controller {
     $this->load->view('template', $data);
   }
 		
-  public function edit() {
+  public function edit($id) {
     $this->load->helper('form');
 
     $this->load->model('MAnalysis','',TRUE);
     
-    $id = $this->uri->segment(3);
+#    $id = $this->uri->segment(3);
+
     $this->load->model('MProject','',TRUE);
+
     $data['row'] = $this->MProject->get_project($id)->result();
-		
+    $data['status'] = $this->MProject->last_status( $id)->status;
+
     // display information for the view
     $data['title'] = "Conductor: Edit Project";
     $data['headline'] = "Edit Project Information";
     $data['include'] = 'project_edit';
-    $data['analyses'] = $this->MAnalysis->list_all_analysis();
+    $data['analyses'] = $this->MAnalysis->list_all_analysis();    
     $data['uid'] = $this->session->userdata('uid');
     $data['groups'] = $this->session->userdata('groups');
+    
     
     $this->load->view('template', $data);
   }
@@ -175,9 +180,6 @@ class Project extends MY_Controller {
     $table_row = NULL;
     $table_row[] = '<span style="white-space: nowrap">' . 
       anchor('project/edit/' . $project->pid, 'edit') . ' | ' .
-      anchor('project/delete/' . $project->pid, 'delete',
-	     "onclick=\" return confirm('Are you sure you want to '
-				+ 'delete the record for ".addslashes($project->name)."?')\"") .
       '</span>';
     
     $table_row[] = htmlspecialchars($project->name);

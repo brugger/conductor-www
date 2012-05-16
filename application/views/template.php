@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-<link href="http://localhost/~kb468/CodeIgniter_2.1.0/assets/css/screen.css" rel="stylesheet" type="text/css" />
+<link href="http://localhost/~kb468/conductor/assets/css/screen.css" rel="stylesheet" type="text/css" />
 <!--  the following lines load the jQuery library + plugins and the conductor JavaScript file -->
 <script src="http://localhost/~kb468/conductor/assets/js/jquery-1.7.2.js" type="text/javascript"></script>
 <script src="http://localhost/~kb468/conductor/assets/js/global.js" type="text/javascript"></script>

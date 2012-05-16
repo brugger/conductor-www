@@ -3,17 +3,23 @@
 	echo form_open('project/update');
 	
 	// an array of the fields in the student table
-	$field_array = array('name' => 'Project Name','notes' => 'Notes');
+        $field_array = array('name' => 'Project Name','notes' => 'Notes', 'organism' => 'Reference');
 	
 	echo form_hidden('pid', $row[0]->pid);
 	
 	foreach($field_array as $field => $label) {
 	  echo '<p>';
 	  echo form_label($label, $field);
-	  	  echo form_input(array('name' => $field, 'value' => $row[0]->$field));
+	  echo form_input(array('name' => $field, 'value' => $row[0]->$field));
 	  echo '</p>';
 	}
-	
+
+        echo '<p>';
+        echo form_label('Status:', $status);
+        echo form_input(array('name' => 'status', 'value' => $status));
+        echo '</p>';
+ 
+
       $analysis_array[ 'NULL' ] = "None";
 
       foreach ($analyses->result() as $analysis) {
