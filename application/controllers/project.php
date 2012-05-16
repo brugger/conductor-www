@@ -1,12 +1,11 @@
 <?php
 
-class Project extends CI_Controller {
+class Project extends MY_Controller {
 
   public function Project() {
 	  
     parent::__construct();
   }
-
 
   public function index()  {
     // redirect to the listing page
@@ -70,17 +69,13 @@ class Project extends CI_Controller {
       
       $table_row = NULL;
       $table_row[] = '<span style="white-space: nowrap">' . 
-		anchor('project/edit/' . $project->pid, 'edit') . ' | ' .
-	anchor('project/delete/' . $project->pid, 'delete',
-	       "onclick=\" return confirm('Are you sure you want to '
-				+ 'delete the record for ".addslashes($project->name)."?')\"") .
-	'</span>';
+		anchor('project/edit/' . $project->pid, 'edit') . ' | ' . '</span>';
       
       $table_row[] = htmlspecialchars($project->name);
-      $table_row[] = '<div class="edit" id="notes">'.htmlspecialchars($project->notes).'</div>';
-      $table_row[] = '<div class="edit" id="organism">'.htmlspecialchars($project->organism).'</div>';
-      $table_row[] = '<div class="edit" id="contacts">'.htmlspecialchars($project->contacts).'</div>';
-      $table_row[] = '<div class="edit" id="status">'.htmlspecialchars($project_status->status).'</div>';
+      $table_row[] = '<div class="edit_project" pid="'.$project->pid .'" id="notes">'.htmlspecialchars($project->notes).'</div>';
+      $table_row[] = '<div class="edit_project" id="organism">'.htmlspecialchars($project->organism).'</div>';
+      $table_row[] = '<div class="edit_project" id="contacts">'.htmlspecialchars($project->contacts).'</div>';
+      $table_row[] = '<div class="edit_project" id="status">'.htmlspecialchars($project_status->status).'</div>';
 
       $analysis = 'None';
       if ( $project->aid ) {
@@ -140,6 +135,13 @@ class Project extends CI_Controller {
     redirect('project/listing','refresh');
     }
 
+
+
+  public function save() {
+    //    $this->MProject->add_project($_POST);
+    echo var_dump($_POST);
+    
+  }
 
   public function status() {
     $this->load->library('table');
