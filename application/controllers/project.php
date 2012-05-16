@@ -75,10 +75,10 @@ class Project extends MY_Controller {
 		anchor('project/edit/' . $project->pid, 'edit') . ' | ' . '</span>';
       
       $table_row[] = htmlspecialchars($project->name);
-      $table_row[] = '<div class="edit_project" pid="'.$project->pid .'" id="notes">'.htmlspecialchars($project->notes).'</div>';
-      $table_row[] = '<div class="edit_project" id="organism">'.htmlspecialchars($project->organism).'</div>';
-      $table_row[] = '<div class="edit_project" id="contacts">'.htmlspecialchars($project->contacts).'</div>';
-      $table_row[] = '<div class="edit_project" id="status">'.htmlspecialchars($project_status->status).'</div>';
+      $table_row[] = '<div class="edit_project" id="notes_'.$project->pid.'">'.htmlspecialchars($project->notes).'</div>';
+      $table_row[] = '<div class="edit_project" id="organism_'.$project->pid.'">'.htmlspecialchars($project->organism).'</div>';
+      $table_row[] = '<div class="edit_project" id="contacts_'.$project->pid.'">'.htmlspecialchars($project->contacts).'</div>';
+      $table_row[] = '<div class="edit_project" id="status_'.$project->pid.'">'.htmlspecialchars($project_status->status).'</div>';
 
       $analysis = 'None';
       if ( $project->aid ) {
@@ -145,11 +145,15 @@ class Project extends MY_Controller {
 
 
 
-  public function save() {
-    //    $this->MProject->add_project($_POST);
-    echo var_dump($_POST);
-    echo $this->session->userdata('uid');
+  public function ajax_save() {
     
+    list($field, $pid) = explode('_', $_POST['id']);
+    $data[$field] = $_POST['value'];
+    
+    $this->load->model('MProject','',TRUE);
+    $this->MProject->update_project($pid, $data);
+    
+    echo $_POST['value'];
   }
 
   public function status() {

@@ -22,7 +22,8 @@ class MProject extends CI_Model {
   
   // Update one project record
   public function update_project($pid, $data) {
-    if ( $data['status']) {
+
+    if ( array_key_exists('status', $data)) {
       $this->update_status($pid, $data['status']);
       unset($data['status']);
     }

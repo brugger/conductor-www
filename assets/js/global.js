@@ -5,7 +5,7 @@
 $(document).ready(function() {
 
 
-	$('.edit_project').editable('http://localhost/~kb468/conductor/index.php/project/save/', { 
+	$('.edit_project').editable('http://localhost/~kb468/conductor/index.php/project/ajax_save/', { 
 		//type      : 'textarea',
 		//id   : 'elementid',
  	        //name : 'newvalue',
