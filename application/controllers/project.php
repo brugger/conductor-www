@@ -37,7 +37,9 @@ class Project extends MY_Controller {
     redirect('project/listing','refresh');
   }
 	
-  public function listing( $filter ) {
+  public function listing(  ) {
+
+    $filter = 1;
 
     if ( ! $filter)
       $filter = 0;
@@ -92,7 +94,8 @@ class Project extends MY_Controller {
 		
     // display information for the view
     $data['title']    = "Classroom: Project Listing";
-    $data['headline'] = "project Listing uid:" . $this->session->userdata('uid') . " groups: " .  implode(", ", $this->session->userdata('groups') . "$filter");
+    $data['headline'] = "project Listing uid:" . $this->session->userdata('uid') . " groups: [" .  implode(", ", $this->session->userdata('groups')) . "]";
+#    $data['headline'] = "project Listing uid:" . $this->session->userdata('uid') . " groups: [" .  var_dump( $this->session->userdata('groups') ) . "]";
     $data['include']  = 'project_listing';
     $data['uid']      = $this->session->userdata('uid');
     $data['groups'] = $this->session->userdata('groups');
@@ -145,6 +148,7 @@ class Project extends MY_Controller {
   public function save() {
     //    $this->MProject->add_project($_POST);
     echo var_dump($_POST);
+    echo $this->session->userdata('uid');
     
   }
 
