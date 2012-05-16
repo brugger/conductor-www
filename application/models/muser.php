@@ -8,7 +8,6 @@ class MUser extends CI_Model {
 
   // Authenticate a user login
   public function authenticate_user($username, $password, &$uid, &$groups) {
-    $groups = array();
     $this->db->select('id');
     $this->db->where('username', $username);
     $this->db->where('password', md5($password));
