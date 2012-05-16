@@ -5,8 +5,10 @@
 $(document).ready(function() {
 
 
-	$('.edit').editable('http://www.example.com/save.php', { 
+	$('.edit_project').editable('http://localhost/~kb468/conductor/index.php/project/save/', { 
 		//type      : 'textarea',
+		//id   : 'elementid',
+ 	        //name : 'newvalue',
 		cancel    : 'Cancel',
 		submit    : 'OK',
 		//indicator : '<img src="img/indicator.gif">',
