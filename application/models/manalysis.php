@@ -16,7 +16,7 @@ class MAnalysis extends CI_Model {
   
   // Retrieve one analysis record
   public function get_analysis($aid) {
-	  return $this->db->get_where('analysis', array('aid'=> $aid));
+    return $this->db->get_where('analysis', array('aid'=> $aid));
   }
   
   // Update one analysis record

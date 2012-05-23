@@ -26,7 +26,13 @@ class MProject extends CI_Model {
     if ( array_key_exists('status', $data)) {
       $this->update_status($pid, $data['status']);
       unset($data['status']);
+
+      # for ajax project save request sometime we are only saving the status, 
+      # so check that there is other stuff to update, it not: return.
+      if (count( $data) == 0 ) 
+	return;
     }
+
 
     $this->db->where('pid', $pid);
     $this->db->update('project', $data); 

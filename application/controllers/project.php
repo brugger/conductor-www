@@ -39,7 +39,7 @@ class Project extends MY_Controller {
 	
   public function listing(  ) {
 
-    $filter = 1;
+    $filter = 0;
 
     if ( ! $filter)
       $filter = 0;
@@ -60,7 +60,7 @@ class Project extends MY_Controller {
     
     $this->table->set_empty("&nbsp;"); 
 		
-    $this->table->set_heading('', 'ID', 'Notes', 'Analysis');
+    $this->table->set_heading('ID', 'Notes', 'Organism', 'PIs', 'Status', 'Analysis');
     
     $table_row = array();
     foreach ($projects_qry->result() as $project) {
@@ -71,21 +71,21 @@ class Project extends MY_Controller {
 	continue;
       
       $table_row = NULL;
-      $table_row[] = '<span style="white-space: nowrap">' . 
-		anchor('project/edit/' . $project->pid, 'edit') . ' | ' . '</span>';
       
       $table_row[] = htmlspecialchars($project->name);
       $table_row[] = '<div class="edit_project" id="notes_'.$project->pid.'">'.htmlspecialchars($project->notes).'</div>';
       $table_row[] = '<div class="edit_project" id="organism_'.$project->pid.'">'.htmlspecialchars($project->organism).'</div>';
       $table_row[] = '<div class="edit_project" id="contacts_'.$project->pid.'">'.htmlspecialchars($project->contacts).'</div>';
-      $table_row[] = '<div class="edit_project" id="status_'.$project->pid.'">'.htmlspecialchars($project_status->status).'</div>';
+      $table_row[] = '<div class="edit_project_status" id="status_'.$project->pid.'">'.htmlspecialchars($project_status->status).'</div>';
 
       $analysis = 'None';
       if ( $project->aid ) {
-        $analyses = $this->MAnalysis->get_analysis($project->aid)->result();
+        $analyses = $this->MAnalysis->get_analysis( $project->aid )->result();
 	$analysis = $analyses[0]->descr;
       }
-      $table_row[] = htmlspecialchars($analysis);
+
+      $table_row[] = '<div class="edit_project_analysis" id="aid_'.$project->pid.'">'.htmlspecialchars($analysis).'</div>';
+#      $table_row[] = htmlspecialchars($analysis);
 
       $this->table->add_row($table_row);
     }    
@@ -145,17 +145,6 @@ class Project extends MY_Controller {
 
 
 
-  public function ajax_save() {
-    
-    list($field, $pid) = explode('_', $_POST['id']);
-    $data[$field] = $_POST['value'];
-    
-    $this->load->model('MProject','',TRUE);
-    $this->MProject->update_project($pid, $data);
-    
-    echo $_POST['value'];
-  }
-
   public function status() {
     $this->load->library('table');
 	  
@@ -186,9 +175,6 @@ class Project extends MY_Controller {
     $table_row = array();
 
     $table_row = NULL;
-    $table_row[] = '<span style="white-space: nowrap">' . 
-      anchor('project/edit/' . $project->pid, 'edit') . ' | ' .
-      '</span>';
     
     $table_row[] = htmlspecialchars($project->name);
     $table_row[] = '<div class="edit" id="notes">'.htmlspecialchars($project->notes).'</div>';

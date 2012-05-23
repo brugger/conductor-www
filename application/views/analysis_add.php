@@ -3,7 +3,7 @@
 	echo form_open('analysis/create');
 	
 	// an array of the fields in the student table
-       $field_array = array('descr' => 'Description','pipeline' => 'Pipeline', 'reference' => 'Reference', 'min_reads' => 'Minimum reads');
+       $field_array = array('descr' => 'Description','pipeline' => 'Pipeline', 'min_reads' => 'Minimum reads');
 	
 	foreach($field_array as $field => $label) {
 	  echo '<p>';

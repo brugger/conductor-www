@@ -16,6 +16,23 @@
 	<?php 
 		// nav bar
 		// loggend in
+   
+
+		if ($uid) {
+			    echo anchor('project/listing', 'Projects');
+			    echo (' | ');
+			    echo anchor('analysis/listing', 'Analyses');
+			    echo (' | ');
+			echo anchor('user/logout', 'Logout');
+		// not logged in
+		} else {
+			echo anchor('user', 'Login');
+			echo (' | ');
+			echo anchor('user/register', 'Register');
+		}
+                echo "<br>";
+
+   //
 		if ($uid) {
 		  if (in_array('admin', $groups)) {
 			  if ($this->router->class == "project" ) {
@@ -42,17 +59,10 @@
 				echo anchor('project/listing', 'List All Projects');
 				echo (' | ');
 				echo anchor('activity/user_class_listing', 'List Class Activities');
-				echo (' | ');
 			}
-			echo anchor('project', 'Home');
-			echo (' | ');
 			echo anchor('user/logout', 'Logout');
 		// not logged in
-		} else {
-			echo anchor('user', 'Login');
-			echo (' | ');
-			echo anchor('user/register', 'Register');
-		}
+		} 
 	?>
 	</div>
 	

@@ -50,23 +50,21 @@ class Analysis extends CI_Controller {
     
     $this->table->set_empty("&nbsp;"); 
 		
-    $this->table->set_heading('', 'Description', 'Pipeline', 'Reference', 'Min. reads' );
+    $this->table->set_heading('Description', 'Pipeline', 'Min. reads' );
     
     $table_row = array();
     foreach ($analysis_qry->result() as $analysis) {
       
       $table_row = NULL;
-      $table_row[] = '<span style="white-space: nowrap">' . 
-		anchor('analysis/edit/' . $analysis->aid, 'edit') . ' | ' .
-	anchor('analysis/delete/' . $analysis->aid, 'delete',
-	       "onclick=\" return confirm('Are you sure you want to '
-				+ 'delete the record for ".addslashes($analysis->descr)."?')\"") .
-	'</span>';
-      
-      $table_row[] = htmlspecialchars($analysis->descr);
-      $table_row[] = htmlspecialchars($analysis->pipeline);
-      $table_row[] = htmlspecialchars($analysis->reference);
-      $table_row[] = htmlspecialchars($analysis->min_reads);
+
+      $table_row[] = '<div class="edit_analysis" id="descr_'.$analysis->aid.'">'.htmlspecialchars($analysis->descr).'</div>';
+      $table_row[] = '<div class="edit_analysis" id="pipeline_'.$analysis->aid.'">'.htmlspecialchars($analysis->pipeline).'</div>';
+      $table_row[] = '<div class="edit_analysis" id="min_reads_'.$analysis->aid.'">'.htmlspecialchars($analysis->min_reads).'</div>';
+
+
+      //$table_row[] = htmlspecialchars($analysis->descr);
+      //$table_row[] = htmlspecialchars($analysis->pipeline);
+      //$table_row[] = htmlspecialchars($analysis->min_reads);
 
       $this->table->add_row($table_row);
     }    
