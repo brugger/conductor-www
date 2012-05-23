@@ -38,6 +38,7 @@
 |
 */
 
+$route['(:any)/user'] = "user";
 $route['default_controller'] = "project";
 $route['404_override'] = '';
 
