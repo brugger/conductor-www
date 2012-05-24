@@ -71,20 +71,26 @@ class Project extends MY_Controller {
 	continue;
       
       $table_row = NULL;
-      
-      $table_row[] = htmlspecialchars($project->name);
-      $table_row[] = '<div class="edit_project" id="notes_'.$project->pid.'">'.htmlspecialchars($project->notes).'</div>';
-      $table_row[] = '<div class="edit_project" id="organism_'.$project->pid.'">'.htmlspecialchars($project->organism).'</div>';
-      $table_row[] = '<div class="edit_project" id="contacts_'.$project->pid.'">'.htmlspecialchars($project->contacts).'</div>';
-      $table_row[] = '<div class="edit_project_status" id="status_'.$project->pid.'">'.htmlspecialchars($project_status->status).'</div>';
 
+      $class_prefix = "";
+      $groups = $this->session->userdata('groups');
+
+      if (in_array('admin', $groups)) 
+	$class_prefix = "edit";
+
+      $table_row[] = htmlspecialchars($project->name);
+      $table_row[] = '<div class="'.$class_prefix.'_project" id="notes_'.$project->pid.'">'.htmlspecialchars($project->notes).'</div>';
+      $table_row[] = '<div class="'.$class_prefix.'_project" id="organism_'.$project->pid.'">'.htmlspecialchars($project->organism).'</div>';
+      $table_row[] = '<div class="'.$class_prefix.'_project" id="contacts_'.$project->pid.'">'.htmlspecialchars($project->contacts).'</div>';
+      $table_row[] = '<div class="'.$class_prefix.'_project_status" id="status_'.$project->pid.'">'.htmlspecialchars($project_status->status).'</div>';
+      
       $analysis = 'None';
       if ( $project->aid ) {
         $analyses = $this->MAnalysis->get_analysis( $project->aid )->result();
 	$analysis = $analyses[0]->descr;
       }
 
-      $table_row[] = '<div class="edit_project_analysis" id="aid_'.$project->pid.'">'.htmlspecialchars($analysis).'</div>';
+      $table_row[] = '<div class="'.$class_prefix.'_project_analysis" id="aid_'.$project->pid.'">'.htmlspecialchars($analysis).'</div>';
 #      $table_row[] = htmlspecialchars($analysis);
 
       $this->table->add_row($table_row);
@@ -109,9 +115,6 @@ class Project extends MY_Controller {
     $this->load->helper('form');
 
     $this->load->model('MAnalysis','',TRUE);
-    
-#    $id = $this->uri->segment(3);
-
     $this->load->model('MProject','',TRUE);
 
     $data['row'] = $this->MProject->get_project($id)->result();

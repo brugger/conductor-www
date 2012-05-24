@@ -18,7 +18,7 @@
 
 //      $analysis_array;// = array();
       foreach ($analyses->result() as $analysis) {
-	$analysis_array[ $analysis->aid ] = $analysis->descr ."( $analysis->pipeline, $analysis->reference, $analysis->min_reads reads)";
+	$analysis_array[ $analysis->aid ] = $analysis->descr ."( $analysis->pipeline, $analysis->min_reads reads)";
        }
 
       echo form_dropdown('aid', $analysis_array);

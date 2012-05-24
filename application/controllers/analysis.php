@@ -57,9 +57,14 @@ class Analysis extends CI_Controller {
       
       $table_row = NULL;
 
-      $table_row[] = '<div class="edit_analysis" id="descr_'.$analysis->aid.'">'.htmlspecialchars($analysis->descr).'</div>';
-      $table_row[] = '<div class="edit_analysis" id="pipeline_'.$analysis->aid.'">'.htmlspecialchars($analysis->pipeline).'</div>';
-      $table_row[] = '<div class="edit_analysis" id="min_reads_'.$analysis->aid.'">'.htmlspecialchars($analysis->min_reads).'</div>';
+      $class_prefix = "";
+      $groups = $this->session->userdata('groups');
+      if (in_array('admin', $groups)) 
+	$class_prefix = "edit";
+
+      $table_row[] = '<div class="'.$class_prefix.'_analysis" id="descr_'.$analysis->aid.'">'.htmlspecialchars($analysis->descr).'</div>';
+      $table_row[] = '<div class="'.$class_prefix.'_analysis" id="pipeline_'.$analysis->aid.'">'.htmlspecialchars($analysis->pipeline).'</div>';
+      $table_row[] = '<div class="'.$class_prefix.'_analysis" id="min_reads_'.$analysis->aid.'">'.htmlspecialchars($analysis->min_reads).'</div>';
 
 
       //$table_row[] = htmlspecialchars($analysis->descr);
