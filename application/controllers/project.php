@@ -74,7 +74,6 @@ class Project extends MY_Controller {
 
       $class_prefix = "";
       $groups = $this->session->userdata('groups');
-
       if (in_array('admin', $groups)) 
 	$class_prefix = "edit";
 
@@ -148,16 +147,16 @@ class Project extends MY_Controller {
 
 
 
-  public function status() {
+  public function status( $pid ) {
     $this->load->library('table');
 	  
     $this->load->model('MAnalysis','',TRUE);
     $this->load->model('MProject','',TRUE);
     $this->load->model('MSample','',TRUE);
 
+    $this->MSample->project_samples_last_status( $pid );
 
-    $pid = $this->uri->segment(3);
-    $this->load->model('MProject','',TRUE);
+#    $pid = $this->uri->segment(3);
     $project = $this->MProject->get_project($pid)->result();
     if ( count( $project ) == 1 ) {
       $project = $project[0];
